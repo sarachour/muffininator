@@ -9,21 +9,39 @@ var puzzleServer = arguments[1];
 var msgPath = arguments[2]
 
 var stats = {correct:0, giveup:0, incorrect:0};
-var message = fs.readFile(msgPath, 'utf8', function (err,data) {
+var info = {msg:"<unset>"}
+
+fs.readFile(msgPath, 'utf8', function (err,data) {
   if (err) {
-    return "";
+    that.message = "<no message>"
   }
-  return data;
+  info.msg = data;
+  console.log(info);
 });
-var message = fs.readFile(puzzleServer, 'utf8', function (err,data) {
+
+fs.readFile(puzzleServer, 'utf8', function (err,data) {
   if (err) {
     return "";
   }
   eval(data);
 });
 var returnFile = function(res){
-	res.writeHead(200, { 'Content-Type': 'text/html' });
-	res.end(message, 'utf-8');
+	res.writeHead(200, { 
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type,      Accept",
+				'Content-Type': 'text/html'
+			});
+	res.end(info.msg, 'utf-8');
+}
+var returnError = function(res){
+	res.writeHead(200, { 
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type,      Accept",
+				'Content-Type': 'text/html'
+			});
+
+	var error_message = '<b style="color:red;">Incorrect Answer</b>'
+	res.end(error_message, 'utf-8');
 }
 var processRequest = function (req, res) {
   var queryData = url.parse(req.url, true).query;
@@ -55,13 +73,15 @@ var processRequest = function (req, res) {
   	console.log("get stats");
   }
   else if(command=="check"){
-  	 var data =queryData.data;
-  	 var isOk = server.check(data);
-  	 if(isOk){
+  	 var data =JSON.parse(queryData.data);
+  	 if(server.check(data)){
+  	 	console.log("returning file");
   	 	returnFile(res);
   	 	stats.correct+=1;
   	 }
   	 else{
+  	 	console.log("returning data");
+  	 	returnError(res);
   	 	stats.incorrect+=1;
   	 }
   }
