@@ -60,6 +60,7 @@ function ClientTemp(){
 	}
 	this.loadPuzzle = function(){
 		var that = this
+		console.log("loadpuzzle");
 		client.setup(
 			$("#puzzler-title"), 
 			$("#puzzler-question"), 
