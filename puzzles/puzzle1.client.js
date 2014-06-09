@@ -36,7 +36,7 @@ the other side of the bridge. <br><br> \
 							opt.clone().attr('id', prefix+"_ba"), 
 							opt.clone().attr('id', prefix+"_bb"), "<br><br>")
 		}
-		answerbox.clear();
+		answerbox.empty();
 		app("1");
 		app("2");
 		app("3");
