@@ -23,8 +23,9 @@ input[type="text"], input[type="password"]{
 }
 
 .west {
-	width: 15%;
+	width: 25%;
 	background-color: rgb(200,200,200);
+	text-align:left;
 }
 .east {
 	width: 25%;

@@ -40,8 +40,23 @@ var returnError = function(res){
 				'Content-Type': 'text/html'
 			});
 
-	var error_message = '<b style="color:red;">Incorrect Answer</b>'
+	var error_message = '<br><br><b class="large text" style="color:red;">Incorrect Answer</b>'
 	res.end(error_message, 'utf-8');
+}
+var returnStats = function(res){
+	var total = stats.giveup + stats.correct;
+  	var statstr = '<b class="small black text">total:'+total+
+  				  "&nbsp;gave-up: "+stats.giveup + 
+  				  "&nbsp;correct:"+stats.correct+
+  				  "&nbsp;incorrect:"+stats.incorrect+
+  				  "</b>";
+  	res.writeHead(200, { 
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type,      Accept",
+				'Content-Type': 'text/html'
+			});
+
+	res.end(statstr, 'utf-8');
 }
 var processRequest = function (req, res) {
   var queryData = url.parse(req.url, true).query;
@@ -70,7 +85,9 @@ var processRequest = function (req, res) {
   	returnFile(res);
   }
   else if(command == "stats"){
+
   	console.log("get stats");
+  	returnStats(res);
   }
   else if(command=="check"){
   	 var data =JSON.parse(queryData.data);

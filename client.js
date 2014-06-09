@@ -24,7 +24,19 @@ function Client(){
 		});
 		this.loadPuzzle();
 	}
+	this.stats = function(){
+		$.get(this.server,
+			{
+				command:"stats"
+			},
+			function(data){
+				console.log(data);
+				$("#puzzler-stats").html(data);
+			}
+		)
+	}
 	this.check = function(data){
+		var that = this;
 		$.get(this.server, 
 			{
 				command:"check",
@@ -33,10 +45,12 @@ function Client(){
 			function(n){
 				console.log("CHECK RESP:", n)
 				$("#puzzler-solution").html(n);
+				that.stats();
 			})
 
 	}
 	this.giveup = function(data){
+		var that = this;
 		$.get(this.server, 
 			{
 				command:"giveup"
@@ -44,6 +58,7 @@ function Client(){
 			function(n){
 				console.log("GIVEUP RESP:", n)
 				$("#puzzler-solution").html(n);
+				that.stats();
 			})
 
 	}
@@ -71,6 +86,7 @@ function Client(){
 				})
 
 		})
+		this.stats();
 	}
 	this.init();
 }
