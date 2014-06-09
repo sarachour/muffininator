@@ -60,13 +60,14 @@ function ClientTemp(){
 	}
 	this.loadPuzzle = function(){
 		var that = this
-		/*
-		client.setup(
-			$("#puzzler-title"), 
-			$("#puzzler-question"), 
-			$("#puzzler-answer")
-		);
-		*/
+		if(!this.loaded){
+			client.setup(
+				$("#puzzler-title"), 
+				$("#puzzler-question"), 
+				$("#puzzler-answer")
+			);
+			this.loaded = true;
+		}
 		$("#submit").click(function(){
 			var data= client.construct();
 			console.log(data);
