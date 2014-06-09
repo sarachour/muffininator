@@ -1,0 +1,71 @@
+button{
+    margin-left:10px;
+    margin-right:10px;
+    border-radius: 5px;
+    height:75%;
+    width:200px;
+}
+input[type="text"], input[type="password"]{
+    margin-left:10px;
+    margin-right:10px;
+    border-radius: 5px;
+}
+
+.layout-outer {
+	height: 100%;
+}
+
+.center, .east, .west, .north, .south {
+	text-align: center;
+    display: inline-block;
+    border-radius: 15px;
+}
+
+.west, .east {
+	width: 15%;
+	background-color: rgb(200,200,200);
+}
+.south {
+	height: 10%;
+	background-color: rgb(50,50,50);
+}
+.north {
+	height: 12%;
+	background-color: red;
+	background-color: rgb(50,50,50);
+	padding:10px;
+}
+.center {
+	background-color: rgb(245,245,245);
+	padding:20px;
+}
+
+.huge {
+    font-size:36px;
+}
+.large {
+	font-size:16px;
+}
+.medium {
+	font-size:14px;
+}
+.text {
+    margin: auto; 
+    font-family:"Lucida Grande";
+    font-variant:small-caps;
+}
+.tiny {
+    font-size:10px;
+}
+.small {
+	font-size:12px;
+}
+.black {
+    color:#414141;
+}
+.faint {
+	color:#4D4D4D;
+}
+.white{
+    color:#DEDEDE;
+}
