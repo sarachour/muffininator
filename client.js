@@ -1,7 +1,20 @@
-
-function Client(){
+var text = "<h3>Muffin Monday Message</h3><br> \
+Happy muffin monday everyone!<br> \
+I decided to standardize future puzzles! From now on they'll be linked on this web interface :D There is also now an option to give up too (for those who are too lazy). Well anyway, come by the G9 lounge at 5PM for delicious !muffins. If you don't like muffins, come for the people. If you don't like people, come by anyway. <br>\
+Have some pictures. \
+<br>\
+\
+<br>\
+PS: I still need a volunteer muffin courier for Monday, June 23. Email me if you can do it, or we will be sans muffins D:<br><br>\
+Caio!<br>\
+Sara<br><br>\
+<img src='http://imgs.steps.dragoart.com/how-to-draw-rage-face-rage-face-step-7_1_000000064727_2.jpg'></img>\
+<img src='http://www.icanlocalize.com/site/wp-content/uploads/2013/01/Rage_Face_Photo.png'></img>\
+<img src='http://fc01.deviantart.net/fs71/i/2012/092/4/c/april_fools__nyan_cat_and_tac_nayn_by_em_po-d4utbup.gif'></img>\
+<img src='http://fc07.deviantart.net/fs25/f/2008/179/d/a/green_llama_lazer_by_Unibrow5000.gif'></img>\
+<br>"
+function ClientTemp(){
 	this.init = function(){
-		this.server = "http://127.0.0.1:8080"
 		this.loaded = false;
 		this.puzzle = null;
 	}
@@ -25,73 +38,46 @@ function Client(){
 		this.loadPuzzle();
 	}
 	this.stats = function(){
-		$.get(this.server,
-			{
-				command:"stats"
-			},
-			function(data){
-				console.log(data);
-				$("#puzzler-stats").html(data);
-			}
-		)
+
+	}
+	this._tempget = function(){
+		$("#puzzler-solution").html(text);
 	}
 	this.check = function(data){
 		var that = this;
-		$.get(this.server, 
-			{
-				command:"check",
-				data: JSON.stringify(data)
-			},
-			function(n){
-				console.log("CHECK RESP:", n)
-				$("#puzzler-solution").html(n);
-				that.stats();
-			})
+		if(server.check(data)){
+			that._tempget();
+		}
+		else{
+			$("#puzzler-solution").html("error");
+		}
 
 	}
 	this.giveup = function(data){
 		var that = this;
-		$.get(this.server, 
-			{
-				command:"giveup"
-			},
-			function(n){
-				console.log("GIVEUP RESP:", n)
-				$("#puzzler-solution").html(n);
-				that.stats();
-			})
+		that._tempget();
 
 	}
 	this.loadPuzzle = function(){
 		var that = this
-		$.get(this.server, 
-			{
-				command:"puzzle"
-			},
-			function(data){
-				that.loaded = true;
-				eval(data);
-				client.setup(
-					$("#puzzler-title"), 
-					$("#puzzler-question"), 
-					$("#puzzler-answer")
-				);
-				$("#submit").click(function(){
-					var data= client.construct();
-					console.log(data);
-					that.check(data);
-				})
-				$("#give-up").click(function(){
-					that.giveup();
-				})
-
+		client.setup(
+			$("#puzzler-title"), 
+			$("#puzzler-question"), 
+			$("#puzzler-answer")
+		);
+		$("#submit").click(function(){
+			var data= client.construct();
+			console.log(data);
+			that.check(data);
 		})
-		this.stats();
+		$("#give-up").click(function(){
+			that.giveup();
+		})
 	}
 	this.init();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  var client = new Client();
-  client.setup();
+  var clientTemp = new ClientTemp();
+  clientTemp.setup();
 })
