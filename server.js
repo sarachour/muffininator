@@ -61,7 +61,7 @@ var returnStats = function(res){
 var processRequest = function (req, res) {
   var queryData = url.parse(req.url, true).query;
   var command = queryData.command
-
+  console.log("Command:", command)
   if(command == "puzzle"){
   	console.log("Puzzle requested: "+puzzleClient);
   	fs.readFile(puzzleClient, function(error, content) {
@@ -103,12 +103,24 @@ var processRequest = function (req, res) {
   	 }
   }
   else{
-  	console.log("Unknown command.")
-  	res.writeHead(200, {'Content-Type': 'text/plain'});
-  	res.end("Unknown Command");
+  	var fname = req.url.slice(1);
+  	console.log("Getting File: "+fname)
+  	fs.readFile(fname, function(error, content) {
+		if (error) {
+			res.writeHead(500);
+			res.end();
+		}
+		else {
+			res.writeHead(200, { 
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type,      Accept"
+			});
+			res.end(content, 'utf-8');
+		}
+	});
   }
 }
 
-http.createServer(processRequest).listen(1337, '127.0.0.1');
+http.createServer(processRequest).listen(1337, 'localhost');
 
 console.log('Server running at http://127.0.0.1:1337/');

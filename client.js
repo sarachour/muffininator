@@ -1,7 +1,7 @@
 
 function Client(){
 	this.init = function(){
-		this.server = "http://127.0.0.1:1337"
+		this.server = "http://127.0.0.1:8080"
 		this.loaded = false;
 		this.puzzle = null;
 	}
