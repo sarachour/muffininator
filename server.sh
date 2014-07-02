@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-node server.js $1 $2 $3
+node server.js puzzles/$1.client.js puzzles/$1.server.js puzzles/$1.text.txt

@@ -1,7 +1,7 @@
 
 function Client(){
 	this.init = function(){
-		this.server = "http://127.0.0.1:8080"
+		this.server = "http://curious-cube.csail.mit.edu:8080"
 		this.loaded = false;
 		this.puzzle = null;
 	}

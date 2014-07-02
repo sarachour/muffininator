@@ -21,6 +21,7 @@ fs.readFile(msgPath, 'utf8', function (err,data) {
 
 fs.readFile(puzzleServer, 'utf8', function (err,data) {
   if (err) {
+    console.log("failed to load server")
     return "";
   }
   eval(data);
@@ -65,18 +66,19 @@ var processRequest = function (req, res) {
   if(command == "puzzle"){
   	console.log("Puzzle requested: "+puzzleClient);
   	fs.readFile(puzzleClient, function(error, content) {
-		if (error) {
-			res.writeHead(500);
-			res.end();
-		}
-		else {
-			res.writeHead(200, { 
-				"Access-Control-Allow-Origin": "*",
-				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type,      Accept",
-				'Content-Type': 'text/html'
-			});
-			res.end(content, 'utf-8');
-		}
+      console.log(error, content);
+  		if (error) {
+  			res.writeHead(500);
+  			res.end();
+  		}
+  		else {
+  			res.writeHead(200, { 
+  				"Access-Control-Allow-Origin": "*",
+  				"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type,      Accept",
+  				'Content-Type': 'text/html'
+  			});
+  			res.end(content, 'utf-8');
+  		}
 	});
   }
   else if(command == "giveup"){
@@ -120,7 +122,7 @@ var processRequest = function (req, res) {
 	});
   }
 }
+//curious-cube.csail.mit.edu
+http.createServer(processRequest).listen(8080, 'curious-cube.csail.mit.edu');
 
-http.createServer(processRequest).listen(1337, 'localhost');
-
-console.log('Server running at http://127.0.0.1:1337/');
+console.log('Server running at curious-cube.csail.mit.edu/');
