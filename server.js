@@ -46,7 +46,7 @@ var returnError = function(res){
 }
 var returnStats = function(res){
 	var total = stats.giveup + stats.correct;
-  	var statstr = '<b class="small black text">total:'+total+
+  	var statstr = '<b class="small white text">total:'+total+
   				  "&nbsp;gave-up: "+stats.giveup + 
   				  "&nbsp;correct:"+stats.correct+
   				  "&nbsp;incorrect:"+stats.incorrect+
