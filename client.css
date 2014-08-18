@@ -59,7 +59,6 @@ input[type="text"], input[type="password"]{
 .text {
     margin: auto; 
     font-family:"Lucida Grande";
-    font-variant:small-caps;
 }
 .tiny {
     font-size:10px;
